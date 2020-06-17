@@ -11,19 +11,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet var cards: [UIButton]!
+    
     lazy var set =  Set()
+    
+    var numbers : [[Int]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        set.createAFullDeck()        
-        print(set.cards.count)
+        set.dealCard()
         
-        
-        // Do any additional setup after loading the view.
-        print("hello world")
     }
-
-
 }
 
+
+
+extension Array {
+    
+// create a function that returns a collection that is cut
+    
+//    mutating func insertAndDelete(contentsOf: T) {
+//
+//    }
+    
+    
+}
