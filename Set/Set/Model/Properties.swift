@@ -12,7 +12,6 @@ protocol random {
     
 }
 
-
 class Properties {
    
     enum Number1: random {

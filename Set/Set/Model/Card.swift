@@ -9,15 +9,19 @@
 import Foundation
 
 
-class Card: Properties, Equatable {
+class Card: Properties, Equatable, CustomStringConvertible {
+    
+    
     var number: Number1
     var shape: Shape1
     var shading: Shading1
     var color: Color1
     
+    var description: String {
+        return "Shape: \(shape), Shading: \(shading), Color: \(color), Number: \(number)"
+    }
+    
     lazy var properties: [random] = [number, shape, shading, color]
-    
-    
     
     init(shape: Shape1, shading: Shading1, color: Color1, number: Number1) {
         self.shape = shape

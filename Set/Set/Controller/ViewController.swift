@@ -18,9 +18,15 @@ class ViewController: UIViewController {
     
     var numbers : [[Int]] = []
     
+    let card1 = Card(shape: .circle, shading: .open, color: .purple, number: .one)
+
+    let card2 = Card(shape: .triangle, shading: .open, color: .green, number: .two)
+    let card3 = Card(shape: .square, shading: .open, color: .red, number: .three)
+    lazy var selectedCards = [card1, card2,card3]
+
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
     }
     
   
@@ -31,8 +37,8 @@ class ViewController: UIViewController {
     
 }
 
+//let card1 = Card(shape: .circle, shading: .open, color: .purple, number: .one)
 
-  //       let card1 = Card(shape: .circle, shading: .open, color: .purple, number: .one)
   //       let card2 = Card(shape: .triangle, shading: .open, color: .green, number: .two)
   //       let card3 = Card(shape: .square, shading: .open, color: .red, number: .three)
     //    lazy var selectedCards = [card1, card2,card3]
