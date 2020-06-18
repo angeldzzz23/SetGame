@@ -19,6 +19,7 @@
 		237823952499E19600D5A459 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823942499E19600D5A459 /* Color.swift */; };
 		237823972499E19E00D5A459 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823962499E19E00D5A459 /* Number.swift */; };
 		237823992499E1FB00D5A459 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823982499E1FB00D5A459 /* Set.swift */; };
+		23A07C3E249BE3C80040E7C8 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A07C3D249BE3C80040E7C8 /* Properties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		237823942499E19600D5A459 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		237823962499E19E00D5A459 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		237823982499E1FB00D5A459 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		23A07C3D249BE3C80040E7C8 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +88,8 @@
 			children = (
 				2378238E2499E16600D5A459 /* Card.swift */,
 				237823982499E1FB00D5A459 /* Set.swift */,
-				237823902499E17800D5A459 /* Shading.swift */,
-				237823922499E18D00D5A459 /* Shape.swift */,
-				237823942499E19600D5A459 /* Color.swift */,
-				237823962499E19E00D5A459 /* Number.swift */,
+				23A07C3F249BE97D0040E7C8 /* Properties */,
+				23A07C3D249BE3C80040E7C8 /* Properties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -107,6 +107,17 @@
 				2378237B2499DFA500D5A459 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		23A07C3F249BE97D0040E7C8 /* Properties */ = {
+			isa = PBXGroup;
+			children = (
+				237823902499E17800D5A459 /* Shading.swift */,
+				237823922499E18D00D5A459 /* Shape.swift */,
+				237823942499E19600D5A459 /* Color.swift */,
+				237823962499E19E00D5A459 /* Number.swift */,
+			);
+			path = Properties;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +199,7 @@
 				237823782499DFA500D5A459 /* AppDelegate.swift in Sources */,
 				2378237A2499DFA500D5A459 /* SceneDelegate.swift in Sources */,
 				2378238F2499E16600D5A459 /* Card.swift in Sources */,
+				23A07C3E249BE3C80040E7C8 /* Properties.swift in Sources */,
 				237823992499E1FB00D5A459 /* Set.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

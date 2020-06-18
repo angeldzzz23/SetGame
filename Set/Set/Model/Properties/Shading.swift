@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Shading {
+enum Shading: Equatable {
     case solid
     case striped
     case open
