@@ -12,6 +12,8 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet var cards: [UIButton]!
+    @IBOutlet weak var dealCardButton: UIButton!
+    
     
     lazy var set =  Set()
     
@@ -42,7 +44,8 @@ class ViewController: UIViewController {
            card.setAttributedTitle(nil, for: .normal)
            card.setTitle(nil, for: .normal)
         }
-        // loop through each button
+        
+        // loop through each button and update
         set.table.enumerated().forEach {  (index, card) in
             let cardButton = cards[index]
             cardButton.alpha = 1
@@ -66,10 +69,23 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
+        // deal card button default settings
+        dealCardButton.isEnabled = true
+        dealCardButton.setTitle("Deal Cards", for: .normal)
+     
+        if set.table.count == 24 || set.cards.isEmpty {
+            dealCardButton.isEnabled = false
+            dealCardButton.setTitle("", for: .normal)
+        }
+        
     }
     
     @IBAction func dealCardButtonWasPressed(_ sender: UIButton) {
-        
+        if set.table.count < 24 {
+            set.dealCard()
+        }
+        updateUI()
     }
     
 

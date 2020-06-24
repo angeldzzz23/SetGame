@@ -348,6 +348,7 @@
                         <viewLayoutGuide key="safeArea" id="cLG-PJ-cLP"/>
                     </view>
                     <connections>
+                        <outlet property="dealCardButton" destination="279-6e-zVC" id="ViV-OO-bWg"/>
                         <outletCollection property="cards" destination="MKJ-wk-UqY" collectionClass="NSMutableArray" id="Owb-nb-b0b"/>
                         <outletCollection property="cards" destination="OvC-LM-SVv" collectionClass="NSMutableArray" id="7nW-Er-Asq"/>
                         <outletCollection property="cards" destination="9DH-Y8-9PN" collectionClass="NSMutableArray" id="bhj-9H-3VV"/>

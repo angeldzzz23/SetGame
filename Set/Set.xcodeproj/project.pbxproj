@@ -14,10 +14,6 @@
 		237823812499DFA900D5A459 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 237823802499DFA900D5A459 /* Assets.xcassets */; };
 		237823842499DFA900D5A459 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 237823822499DFA900D5A459 /* LaunchScreen.storyboard */; };
 		2378238F2499E16600D5A459 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2378238E2499E16600D5A459 /* Card.swift */; };
-		237823912499E17800D5A459 /* Shading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823902499E17800D5A459 /* Shading.swift */; };
-		237823932499E18D00D5A459 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823922499E18D00D5A459 /* Shape.swift */; };
-		237823952499E19600D5A459 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823942499E19600D5A459 /* Color.swift */; };
-		237823972499E19E00D5A459 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823962499E19E00D5A459 /* Number.swift */; };
 		237823992499E1FB00D5A459 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237823982499E1FB00D5A459 /* Set.swift */; };
 		23A07C3E249BE3C80040E7C8 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A07C3D249BE3C80040E7C8 /* Properties.swift */; };
 /* End PBXBuildFile section */
@@ -32,10 +28,6 @@
 		237823832499DFA900D5A459 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		237823852499DFA900D5A459 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2378238E2499E16600D5A459 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		237823902499E17800D5A459 /* Shading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shading.swift; sourceTree = "<group>"; };
-		237823922499E18D00D5A459 /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
-		237823942499E19600D5A459 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		237823962499E19E00D5A459 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		237823982499E1FB00D5A459 /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		23A07C3D249BE3C80040E7C8 /* Properties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +80,6 @@
 			children = (
 				2378238E2499E16600D5A459 /* Card.swift */,
 				237823982499E1FB00D5A459 /* Set.swift */,
-				23A07C3F249BE97D0040E7C8 /* Properties */,
 				23A07C3D249BE3C80040E7C8 /* Properties.swift */,
 			);
 			path = Model;
@@ -107,17 +98,6 @@
 				2378237B2499DFA500D5A459 /* ViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		23A07C3F249BE97D0040E7C8 /* Properties */ = {
-			isa = PBXGroup;
-			children = (
-				237823902499E17800D5A459 /* Shading.swift */,
-				237823922499E18D00D5A459 /* Shape.swift */,
-				237823942499E19600D5A459 /* Color.swift */,
-				237823962499E19E00D5A459 /* Number.swift */,
-			);
-			path = Properties;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,10 +171,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				237823972499E19E00D5A459 /* Number.swift in Sources */,
-				237823912499E17800D5A459 /* Shading.swift in Sources */,
-				237823932499E18D00D5A459 /* Shape.swift in Sources */,
-				237823952499E19600D5A459 /* Color.swift in Sources */,
 				2378237C2499DFA500D5A459 /* ViewController.swift in Sources */,
 				237823782499DFA500D5A459 /* AppDelegate.swift in Sources */,
 				2378237A2499DFA500D5A459 /* SceneDelegate.swift in Sources */,

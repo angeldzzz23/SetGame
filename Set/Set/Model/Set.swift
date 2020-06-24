@@ -65,8 +65,16 @@ class Set {
     
     /// deals three cards into table
     func dealCard() {
-        table.append(contentsOf: cards[0..<3])
-        cards.removeSubrange(0..<3)
+        if selectedCards.count == 3 && isASet() && !cards.isEmpty {
+            selectedCards.forEach { (card) in
+                let index = table.firstIndex(of: card)!
+                table[index] = cards.removeFirst()
+            }
+            selectedCards.removeAll()
+        } else {
+            table.append(contentsOf: cards[0..<3])
+            cards.removeSubrange(0..<3)
+        }
     }
     
     /// new game description
