@@ -48,6 +48,9 @@
                                         <state key="normal" title="Deal Cards">
                                             <color key="titleColor" red="0.0" green="0.68472248319999995" blue="0.6208711267" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="dealCardButtonWasPressed:" destination="8rD-SC-EBh" eventType="touchUpInside" id="3Db-Rt-WqQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a57-gy-YfO">
                                         <rect key="frame" x="178" y="0.0" width="76" height="56"/>

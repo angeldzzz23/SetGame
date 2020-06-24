@@ -42,6 +42,7 @@ class ViewController: UIViewController {
            card.setAttributedTitle(nil, for: .normal)
            card.setTitle(nil, for: .normal)
         }
+        // loop through each button
         set.table.enumerated().forEach {  (index, card) in
             let cardButton = cards[index]
             cardButton.alpha = 1
@@ -57,19 +58,29 @@ class ViewController: UIViewController {
             }
             
             // let user know that they have a match.
+            if (set.selectedCards.count == 3) {
+                if set.isASet() && set.selectedCards.contains(card) {
+                    cardButton.backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+                } else if !set.isASet() && set.selectedCards.contains(card) {
+                   cardButton.backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                }
+            }
         }
     }
+    
+    @IBAction func dealCardButtonWasPressed(_ sender: UIButton) {
+        
+    }
+    
 
     @IBAction func CardWasPressed(_ sender: UIButton) {
         if let index = cards.firstIndex(of: sender) {
             set.select(card: set.table[index])
-//            print(card)
             updateUI()
-          } else {
-                  
           }
     }
-    func getAttributedText(cardButton: Card) ->NSAttributedString{
+    
+    func getAttributedText(cardButton: Card) ->NSAttributedString {
         var attributes = [NSAttributedString.Key : Any]()
         switch (cardButton.shading) {
         case .open: // outlined

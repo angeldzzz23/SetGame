@@ -41,8 +41,9 @@ class Set {
            return (propertiesThatAreSimilar.isEmpty) ? nil : propertiesThatAreSimilar
        }
        
-       private func isASet() -> Bool {
+    func isASet() -> Bool {
            var aSetHasBeenFound = false
+//        if selectedCards.count != 3 {return false}
            // check if first two cards have a similarity
            if let similarProperties = compare(firstcard: selectedCards[0], and: selectedCards[1]) {
                // if they do then check if the properties they have in common are found in the thirdCard
@@ -81,6 +82,19 @@ class Set {
     /// select Card
     func select(card:Card) {
         selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
+      
+        if selectedCards.count == 4 {
+            if (isASet()) {
+                for selectedCard in selectedCards {
+                     table.removeAll(where: {$0 == selectedCard && !($0 == card)})
+                }
+                // remove all selected cards except the forth card
+                selectedCards.removeAll(where: {$0 != card})
+            } else {
+                selectedCards.removeAll()
+                selectedCards.append(card)
+            }
+        }
     }
     
     // creates a full deck of 81 cards
