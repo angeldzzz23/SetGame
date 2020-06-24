@@ -26,7 +26,7 @@ class Set {
     /// current score
     private var score = 0
     /// Selected cards
-    private var selectedCards:[Card] = []
+    private(set) var selectedCards:[Card] = []
 
       /// compares
        // return an array of properties that they have in common
@@ -80,7 +80,7 @@ class Set {
 
     /// select Card
     func select(card:Card) {
-        selectedCards.append(card)
+        selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
     }
     
     // creates a full deck of 81 cards

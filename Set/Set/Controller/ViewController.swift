@@ -10,7 +10,6 @@ import UIKit
 
 
 class ViewController: UIViewController {
-
     
     @IBOutlet var cards: [UIButton]!
     
@@ -46,21 +45,30 @@ class ViewController: UIViewController {
         set.table.enumerated().forEach {  (index, card) in
             let cardButton = cards[index]
             cardButton.alpha = 1
-            cardButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            
+           
             // set the attributes of the buttons
             cardButton.setAttributedTitle(getAttributedText(cardButton: card), for: .normal)
+            
+            // update selectedCards
+            if (set.selectedCards.contains(card)) {
+                cardButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                 cardButton.backgroundColor = #colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1)
+            }
+            
+            // let user know that they have a match.
         }
     }
 
     @IBAction func CardWasPressed(_ sender: UIButton) {
-        if let card = cards.firstIndex(of: sender) {
-            print(card)
+        if let index = cards.firstIndex(of: sender) {
+            set.select(card: set.table[index])
+//            print(card)
+            updateUI()
           } else {
                   
           }
     }
-    
     func getAttributedText(cardButton: Card) ->NSAttributedString{
         var attributes = [NSAttributedString.Key : Any]()
         switch (cardButton.shading) {
@@ -73,7 +81,6 @@ class ViewController: UIViewController {
         case .striped:
              attributes[NSAttributedString.Key.foregroundColor] = color[cardButton.color]!.withAlphaComponent(0.3)
             break
-            
         }
         return NSAttributedString(string: getShapeWithAppropriateNumber(card: cardButton), attributes: attributes)
     }
