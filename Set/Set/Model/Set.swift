@@ -22,7 +22,7 @@ class Set {
     /// full deck of cards
     private(set) var cards: [Card] = []
     /// user table
-    private var table:[Card] = []
+    private(set) var table:[Card] = []
     /// current score
     private var score = 0
     /// Selected cards

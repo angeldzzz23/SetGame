@@ -16,68 +16,65 @@ class ViewController: UIViewController {
     
     lazy var set =  Set()
     
-    var numbers : [[Int]] = []
+    // mapping properties
+    let color: [Card.Color1: UIColor] = [.red: #colorLiteral(red: 0.8117647059, green: 0.4, blue: 0.4745098039, alpha: 1), .green: #colorLiteral(red: 0.01176470588, green: 0.8549019608, blue: 0.7764705882, alpha: 1) , .purple: #colorLiteral(red: 0.6666666667, green: 0.1127794535, blue: 1, alpha: 1)]
+    let shape: [Card.Shape1: String] = [.circle: "●", .triangle: "▲", .square: "■"]
     
-    let card1 = Card(shape: .circle, shading: .open, color: .purple, number: .one)
-
-    let card2 = Card(shape: .triangle, shading: .open, color: .green, number: .two)
-    let card3 = Card(shape: .square, shading: .open, color: .red, number: .three)
-    lazy var selectedCards = [card1, card2,card3]
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        updateUI()
     }
     
-  
+    func getShapeWithAppropriateNumber(card: Card) -> String {
+        switch card.number {
+        case .one:
+            return shape[card.shape]!
+        case .two:
+            return shape[card.shape]! + shape[card.shape]!
+        case .three:
+            return shape[card.shape]! + shape[card.shape]! + shape[card.shape]!
+        }
+    }
     
+    func updateUI() {
+        // the initialState for all cards
+        for card in cards {
+           card.alpha = 0
+           card.setAttributedTitle(nil, for: .normal)
+           card.setTitle(nil, for: .normal)
+        }
+        set.table.enumerated().forEach {  (index, card) in
+            let cardButton = cards[index]
+            cardButton.alpha = 1
+            cardButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            
+            // set the attributes of the buttons
+            cardButton.setAttributedTitle(getAttributedText(cardButton: card), for: .normal)
+        }
+    }
+
     @IBAction func CardWasPressed(_ sender: UIButton) {
-        
+        if let card = cards.firstIndex(of: sender) {
+            print(card)
+          } else {
+                  
+          }
     }
     
+    func getAttributedText(cardButton: Card) ->NSAttributedString{
+        var attributes = [NSAttributedString.Key : Any]()
+        switch (cardButton.shading) {
+        case .open: // outlined
+              attributes[NSAttributedString.Key.strokeWidth] = 10
+            break
+        case .solid:
+            attributes[NSAttributedString.Key.foregroundColor] = color[cardButton.color]!.withAlphaComponent(100)
+            break
+        case .striped:
+             attributes[NSAttributedString.Key.foregroundColor] = color[cardButton.color]!.withAlphaComponent(0.3)
+            break
+            
+        }
+        return NSAttributedString(string: getShapeWithAppropriateNumber(card: cardButton), attributes: attributes)
+    }
 }
-
-//let card1 = Card(shape: .circle, shading: .open, color: .purple, number: .one)
-
-  //       let card2 = Card(shape: .triangle, shading: .open, color: .green, number: .two)
-  //       let card3 = Card(shape: .square, shading: .open, color: .red, number: .three)
-    //    lazy var selectedCards = [card1, card2,card3]
-    
-    /// compares
-    // return an array of properties that they have in common
-//    func compare(firstcard: Card,and secondCard: Card) -> [random]?  {
-//        // holds the properties that are similar between the two cards
-//        var propertiesThatAreSimilar: [random] = []
-//        for (cp1) in (firstcard.properties) {
-//            if (secondCard.contains(property: cp1)) { propertiesThatAreSimilar.append(cp1) }
-//        }
-//        // returns the array of properties
-//        return (propertiesThatAreSimilar.isEmpty) ? nil : propertiesThatAreSimilar
-//    }
-//
-//    func isASet() -> Bool {
-//        var aSetHasBeenFound = false
-//        // check if first two cards have a similarity
-//        if let similarProperties = compare(firstcard: selectedCards[0], and: selectedCards[1]) {
-//            // if they do then check if the properties they have in common are found in the thirdCard
-//            similarProperties.forEach { property in
-//                // if any of the similary properties are found in the third card, then it is a set.
-//                if (selectedCards[2].contains(property: property)) {
-//                  // if the the properties are found in the third card then it is a set
-//                    aSetHasBeenFound = true
-//                }
-//            }
-//            // if no similarity has been found, return false.
-//            return (aSetHasBeenFound)
-//        }
-//        // if they dont
-//        // Then check if cardTwo and CardOne have anything in common with cardThree
-//        // if no similaries are found then they are a set.
-//        return (compare(firstcard: selectedCards[0], and: selectedCards[2]) == nil && compare(firstcard: selectedCards[1], and: selectedCards[2]) == nil)
-//     }
-
- 
-
-
-
-
