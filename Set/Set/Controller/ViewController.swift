@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     @IBOutlet var cards: [UIButton]!
     @IBOutlet weak var dealCardButton: UIButton!
+    @IBOutlet weak var scoreButton: UILabel!
     
     
     lazy var set =  Set()
@@ -78,6 +79,10 @@ class ViewController: UIViewController {
             dealCardButton.isEnabled = false
             dealCardButton.setTitle("", for: .normal)
         }
+        // update score button
+        set.updateScore()
+        scoreButton.text = String(set.score)
+        
         
     }
     

@@ -18,13 +18,12 @@ struct Constants {
 }
 
 class Set {
-    
     /// full deck of cards
     private(set) var cards: [Card] = []
     /// user table
     private(set) var table:[Card] = []
     /// current score
-    private var score = 0
+    private(set) var score = 0
     /// Selected cards
     private(set) var selectedCards:[Card] = []
 
@@ -42,8 +41,8 @@ class Set {
        }
        
     func isASet() -> Bool {
+        if selectedCards.count < 3 {return false}
            var aSetHasBeenFound = false
-//        if selectedCards.count != 3 {return false}
            // check if first two cards have a similarity
            if let similarProperties = compare(firstcard: selectedCards[0], and: selectedCards[1]) {
                // if they do then check if the properties they have in common are found in the thirdCard
@@ -90,7 +89,6 @@ class Set {
     /// select Card
     func select(card:Card) {
         selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
-      
         if selectedCards.count == 4 {
             if (isASet()) {
                 for selectedCard in selectedCards {
@@ -103,6 +101,10 @@ class Set {
                 selectedCards.append(card)
             }
         }
+    }
+    
+    func updateScore() {
+        if isASet() && selectedCards.count == 3 {score += 3} else if selectedCards.count == 3 { score -= 5 }
     }
     
     // creates a full deck of 81 cards
