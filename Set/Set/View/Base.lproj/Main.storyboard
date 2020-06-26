@@ -37,6 +37,9 @@
                                         <state key="normal" title="Cheat">
                                             <color key="titleColor" red="0.65688943860000004" green="0.31813329460000001" blue="0.37721323969999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cheatButtonWasPressed:" destination="8rD-SC-EBh" eventType="touchUpInside" id="LAP-0u-9ue"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="279-6e-zVC">
                                         <rect key="frame" x="89" y="0.0" width="76" height="56"/>
