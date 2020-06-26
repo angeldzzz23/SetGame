@@ -8,7 +8,8 @@
 
 import UIKit
 
-
+// TODO: Add more comments
+// Refactor a bit more
 
 class ViewController: UIViewController {
     
@@ -26,32 +27,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         updateUI()
         
+       
         
-        if let randomPair = getRandomSet(cardssss: set.table) {
-            if let index = set.table.firstIndex(of: randomPair.card1) {
-//                cards[index].backgroundColor = .green
-                cards[index].layer.borderWidth = 1
-                cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-            } else {
-                print(randomPair.card3)
-            }
-
-              if let index = set.table.firstIndex(of: randomPair.card2) {
-
-                cards[index].layer.borderWidth = 1
-                cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-              } else {
-                  print(randomPair.card3)
-              }
-              
-              if let index = set.table.firstIndex(of: randomPair.card3) {
-                cards[index].layer.borderWidth = 1
-                cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-              } else {
-                  print(randomPair.card3)
-              }
-        }
-
+        
+        
     }
     
     
@@ -196,11 +175,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func cheatButtonWasPressed(_ sender: UIButton) {
+         set.cheat()
         
+             if let index = set.table.firstIndex(of: set.cheatPair[0]) {
+                     cards[index].layer.borderWidth = 1
+                     cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
+                 }
+             
+                   if let index = set.table.firstIndex(of: set.cheatPair[1]) {
+
+                     cards[index].layer.borderWidth = 1
+                     cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
+                   }
+                   
+                   if let index = set.table.firstIndex(of: set.cheatPair[2]) {
+                     cards[index].layer.borderWidth = 1
+                     cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
+                   }
+
+
     }
-    
-    
-    
     
     func getAttributedText(cardButton: Card) ->NSAttributedString {
         var attributes = [NSAttributedString.Key : Any]()

@@ -8,15 +8,12 @@
 
 import Foundation
 
-
 class MatchedCards: Equatable {
     var card1: Card
     var card2: Card
     var card3: Card
     
     lazy var cards = [card1, card2, card3]
-    
-    
     
     static func == (lhs: MatchedCards, rhs: MatchedCards) -> Bool {
         var cardCount = 0
@@ -26,7 +23,7 @@ class MatchedCards: Equatable {
                 cardCount += 1
             }
         }
-        
+
         return (cardCount == 3) ? true : false
     }
     

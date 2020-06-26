@@ -9,8 +9,10 @@
 import Foundation
 
 protocol random {
-    
+    // add the getAll() function
+    // remove class property
 }
+
 
 class Properties {
    

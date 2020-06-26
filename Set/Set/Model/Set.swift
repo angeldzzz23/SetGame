@@ -27,71 +27,85 @@ class Set {
     /// Selected cards
     private(set) var selectedCards:[Card] = []
     
-      /// compares
-       // return an array of properties that they have in common
-      private func compare(firstcard: Card,and secondCard: Card) -> [random]?  {
-           // holds the properties that are similar between the two cards
-           var propertiesThatAreSimilar: [random] = []
-           
-           for (cp1) in (firstcard.properties) {
-               if (secondCard.contains(property: cp1)) { propertiesThatAreSimilar.append(cp1) }
-           }
-           // returns the array of properties
-           return (propertiesThatAreSimilar.isEmpty) ? nil : propertiesThatAreSimilar
-       }
-       
+    /// containts the 3 cards  which are a set
+    private(set) var cheatPair: [Card] = []
+
     
-     
+    /// compares
+    // return an array of properties that they have in common
+    private func compare(firstcard: Card,and secondCard: Card) -> [random]?  {
+        // holds the properties that are similar between the two cards
+        var propertiesThatAreSimilar: [random] = []
+        
+        for (cp1) in (firstcard.properties) {
+            if (secondCard.contains(property: cp1)) { propertiesThatAreSimilar.append(cp1) }
+        }
+        // returns the array of properties
+        return (propertiesThatAreSimilar.isEmpty) ? nil : propertiesThatAreSimilar
+    }
+    
     func isASet(cards: [Card]? = nil) -> Bool {
         
         let amount = cards ?? selectedCards
         print(amount) // FIX ME:
         
         if amount.count < 3 {return false}
-           var aSetHasBeenFound = false
-           // check if first two cards have a similarity
-           if let similarProperties = compare(firstcard: amount[0], and: amount[1]) {
-               // if they do then check if the properties they have in common are found in the thirdCard
-               similarProperties.forEach { property in
-                   // if any of the similary properties are found in the third card, then it is a set.
-                   if (amount[2].contains(property: property)) {
-                     // if the the properties are found in the third card then it is a set
-                       aSetHasBeenFound = true
-                   }
-               }
-               // if no similarity has been found, return false.
-               return (aSetHasBeenFound)
-           }
-           // if they dont
-           // Then check if cardTwo and CardOne have anything in common with cardThree
-           // if no similaries are found then they are a set.
-           return (compare(firstcard: amount[0], and: amount[2]) == nil && compare(firstcard: amount[1], and: amount[2]) == nil)
+        var aSetHasBeenFound = false
+        // check if first two cards have a similarity
+        if let similarProperties = compare(firstcard: amount[0], and: amount[1]) {
+            // if they do then check if the properties they have in common are found in the thirdCard
+            similarProperties.forEach { property in
+                // if any of the similary properties are found in the third card, then it is a set.
+                if (amount[2].contains(property: property)) {
+                    // if the the properties are found in the third card then it is a set
+                    aSetHasBeenFound = true
+                }
+            }
+            // if no similarity has been found, return false.
+            return (aSetHasBeenFound)
         }
-    
-//    func cardsAreASet(cardsWithSimiliaries: [Card]) -> Bool {
-//        if cardsWithSimiliaries.count < 3 {return false}
-//           var aSetHasBeenFound = false
-//                // check if first two cards have a similarity
-//                if let similarProperties = compare(firstcard: cardsWithSimiliaries[0], and: cardsWithSimiliaries[1]) {
-//                    // if they do then check if the properties they have in common are found in the thirdCard
-//                    similarProperties.forEach { property in
-//                        // if any of the similary properties are found in the third card, then it is a set.
-//                        if (cardsWithSimiliaries[2].contains(property: property)) {
-//                          // if the the properties are found in the third card then it is a set
-//                            aSetHasBeenFound = true
-//                        }
-//                    }
-//                    // if no similarity has been found, return false.
-//                    return (aSetHasBeenFound)
-//                }
-//                // if they dont
-//                // Then check if cardTwo and CardOne have anything in common with cardThree
-//                // if no similaries are found then they are a set.
-//                return (compare(firstcard: cardsWithSimiliaries[0], and: cardsWithSimiliaries[2]) == nil && compare(firstcard: cardsWithSimiliaries[1], and: cardsWithSimiliaries[2]) == nil)
-//       }
+        // if they dont
+        // Then check if cardTwo and CardOne have anything in common with cardThree
+        // if no similaries are found then they are a set.
+        return (compare(firstcard: amount[0], and: amount[2]) == nil && compare(firstcard: amount[1], and: amount[2]) == nil)
+    }
     
     
-    /// function that algorithm finds out the pairs of cards that are a match
+    /// intializes cheatPair with three cards that are a set
+    func cheat() {
+        cheatPair.removeAll()
+        var firstArray = table
+        var numpairOfMatches: [MatchedCards] = []
+        
+            for firstCard in firstArray {
+                    firstArray.removeAll(where: {$0 == firstCard})
+                    for secondCard in firstArray {
+                        firstArray.removeAll(where: {$0 == secondCard})
+                        for thirdCard in firstArray {
+                            if isASet(cards: [firstCard, secondCard, thirdCard]) {
+                                let mCards: MatchedCards = MatchedCards(card1: firstCard, card2: secondCard, card3: thirdCard)
+                                if !numpairOfMatches.contains(mCards) {
+                                    numpairOfMatches.append(mCards)
+                                } else {
+        
+                                }
+                            }
+                        }
+                        firstArray.append(secondCard)
+                    }
+                    firstArray.append(firstCard)
+                }
+        
+                if numpairOfMatches.count > 0 {
+                    let r = Int.random(in: 0..<numpairOfMatches.count)
+                    cheatPair.append(numpairOfMatches[r].card1)
+                    cheatPair.append(numpairOfMatches[r].card2)
+                    cheatPair.append(numpairOfMatches[r].card3)
+                }
+    }
+    
+    
+  
     
     /// deals three cards into table
     func dealCard() {
@@ -111,20 +125,20 @@ class Set {
     func newGame() {
         fullDeckOfCards.removeAll(); table.removeAll(); score = 0
         createAFullDeck()
-//        fullDeckOfCards.shuffle(); fullDeckOfCards.shuffle();
+        fullDeckOfCards.shuffle();
         // add 12 cards into table from cards
         table.append(contentsOf: fullDeckOfCards[0..<12])
         // removes cards from
         fullDeckOfCards.removeSubrange(0..<12)
     }
-
+    
     /// select Card
     func select(card:Card) {
         selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
         if selectedCards.count == 4 {
             if (isASet()) {
                 for selectedCard in selectedCards {
-                     table.removeAll(where: {$0 == selectedCard && !($0 == card)})
+                    table.removeAll(where: {$0 == selectedCard && !($0 == card)})
                 }
                 // remove all selected cards except the forth card
                 selectedCards.removeAll(where: {$0 != card})
@@ -154,11 +168,8 @@ class Set {
                         let card = Card(shape: Constants.shapes[ss], shading: Constants.shadings[s], color: Constants.colors[c], number: Constants.numbers[n])
                         fullDeckOfCards.append(card)
                     }
-                      
                 }
-                  
             }
-            
         }
     }
     init() {  newGame();  }
