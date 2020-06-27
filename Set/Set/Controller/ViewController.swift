@@ -30,11 +30,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
-    
-        
-
-
-        
     }
     
     
@@ -76,12 +71,12 @@ class ViewController: UIViewController {
             
             // let user know that they have a match.
             if (set.selectedCards.count == 3) {
-               
-                
                 if set.isASet() && set.selectedCards.contains(card) {
                     cardButton.backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+                     scoreButton.text = String(set.score)
                 } else if !set.isASet() && set.selectedCards.contains(card) {
                    cardButton.backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                     scoreButton.text = String(set.score)
                 }
             }
             
@@ -97,9 +92,10 @@ class ViewController: UIViewController {
             dealCardButton.isEnabled = false
             dealCardButton.setTitle("", for: .normal)
         }
-        // update score button
-//        set.updateScore()
+        
+        // update selected cards
         scoreButton.text = String(set.score)
+     
     }
     
     @IBAction func dealCardButtonWasPressed(_ sender: UIButton) {
@@ -156,16 +152,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-       let seconds = abs(date.timeIntervalSinceNow)
-        print(seconds)
-        date = Date()
-        
-//         if seconds > 30 {
-//             print("You picked your card over thirty seconds")
-//         } else {
-//             print("good bob")
-//         }
-      
         
     }
     

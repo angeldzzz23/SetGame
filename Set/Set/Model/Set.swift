@@ -102,6 +102,21 @@ class Set {
             cheatPair.append(numpairOfMatches[r].card1)
             cheatPair.append(numpairOfMatches[r].card2)
             cheatPair.append(numpairOfMatches[r].card3)
+           
+        } else {
+           print("there is no set")
+        }
+        
+         penalizeIfThereIsASet()
+        
+    }
+    
+    
+    
+    func penalizeIfThereIsASet() {
+        
+        if cheatPair.count > 0 {
+            score -= 5
         }
     }
     
@@ -110,7 +125,7 @@ class Set {
     
     // there is bug
         // when fullDeckOfCard is empty
-         //
+        //
     func dealCard() {
         if selectedCards.count == 3 && isASet() && !fullDeckOfCards.isEmpty {
              // TODO: Update score
@@ -125,6 +140,7 @@ class Set {
         } else if (selectedCards.count == 3 && !isASet()) {
             calculateScore(aSet: false)
         } else {
+           
             table.append(contentsOf: fullDeckOfCards[0..<3])
             fullDeckOfCards.removeSubrange(0..<3)
         }
