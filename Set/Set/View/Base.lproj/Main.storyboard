@@ -71,9 +71,12 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="56" id="ioJ-9a-T1n"/>
                                         </constraints>
-                                        <state key="normal" title="Play Again">
+                                        <state key="normal" title="button">
                                             <color key="titleColor" red="0.59065610170000005" green="0.40747287869999999" blue="0.80178695919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="buttonPressed:" destination="8rD-SC-EBh" eventType="touchUpInside" id="6pl-nB-qPD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

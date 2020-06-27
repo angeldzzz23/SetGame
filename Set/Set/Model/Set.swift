@@ -29,7 +29,8 @@ class Set {
     
     /// containts the 3 cards  which are a set
     private(set) var cheatPair: [Card] = []
-
+    private var date = Date()
+    
     
     /// compares
     // return an array of properties that they have in common
@@ -47,7 +48,7 @@ class Set {
     func isASet(cards: [Card]? = nil) -> Bool {
         
         let amount = cards ?? selectedCards
-        print(amount) // FIX ME:
+//        print(amount) // FIX ME:
         
         if amount.count < 3 {return false}
         var aSetHasBeenFound = false
@@ -72,49 +73,57 @@ class Set {
     
     
     /// intializes cheatPair with three cards that are a set
+    // optimize it to make it faster
     func cheat() {
         cheatPair.removeAll()
         var firstArray = table
         var numpairOfMatches: [MatchedCards] = []
         
-            for firstCard in firstArray {
-                    firstArray.removeAll(where: {$0 == firstCard})
-                    for secondCard in firstArray {
-                        firstArray.removeAll(where: {$0 == secondCard})
-                        for thirdCard in firstArray {
-                            if isASet(cards: [firstCard, secondCard, thirdCard]) {
-                                let mCards: MatchedCards = MatchedCards(card1: firstCard, card2: secondCard, card3: thirdCard)
-                                if !numpairOfMatches.contains(mCards) {
-                                    numpairOfMatches.append(mCards)
-                                } else {
-        
-                                }
-                            }
+        for firstCard in firstArray {
+            firstArray.removeAll(where: {$0 == firstCard})
+            for secondCard in firstArray {
+                firstArray.removeAll(where: {$0 == secondCard})
+                for thirdCard in firstArray {
+                    if isASet(cards: [firstCard, secondCard, thirdCard]) {
+                        let mCards: MatchedCards = MatchedCards(card1: firstCard, card2: secondCard, card3: thirdCard)
+                        if !numpairOfMatches.contains(mCards) {
+                            numpairOfMatches.append(mCards)
+                            break
                         }
-                        firstArray.append(secondCard)
                     }
-                    firstArray.append(firstCard)
                 }
+                firstArray.append(secondCard)
+            }
+            firstArray.append(firstCard)
+        }
         
-                if numpairOfMatches.count > 0 {
-                    let r = Int.random(in: 0..<numpairOfMatches.count)
-                    cheatPair.append(numpairOfMatches[r].card1)
-                    cheatPair.append(numpairOfMatches[r].card2)
-                    cheatPair.append(numpairOfMatches[r].card3)
-                }
+        if numpairOfMatches.count > 0 {
+            let r = Int.random(in: 0..<numpairOfMatches.count)
+            cheatPair.append(numpairOfMatches[r].card1)
+            cheatPair.append(numpairOfMatches[r].card2)
+            cheatPair.append(numpairOfMatches[r].card3)
+        }
     }
     
     
-  
-    
     /// deals three cards into table
+    
+    // there is bug
+        // when fullDeckOfCard is empty
+         //
     func dealCard() {
         if selectedCards.count == 3 && isASet() && !fullDeckOfCards.isEmpty {
+             // TODO: Update score
             selectedCards.forEach { (card) in
                 let index = table.firstIndex(of: card)!
                 table[index] = fullDeckOfCards.removeFirst()
             }
             selectedCards.removeAll()
+        } else if (selectedCards.count == 3 && isASet() && fullDeckOfCards.isEmpty) {
+             // TODO: Update score
+            // remove just from the full deck of Cards
+        } else if (selectedCards.count == 3 && !isASet()) {
+            calculateScore(aSet: false)
         } else {
             table.append(contentsOf: fullDeckOfCards[0..<3])
             fullDeckOfCards.removeSubrange(0..<3)
@@ -133,16 +142,21 @@ class Set {
     }
     
     /// select Card
+    // TODO: Update score
     func select(card:Card) {
         selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
         if selectedCards.count == 4 {
             if (isASet()) {
+                // TODO: update score
+                calculateScore(aSet: true)
                 for selectedCard in selectedCards {
                     table.removeAll(where: {$0 == selectedCard && !($0 == card)})
                 }
                 // remove all selected cards except the forth card
                 selectedCards.removeAll(where: {$0 != card})
             } else {
+                // update score
+                calculateScore(aSet: false)
                 selectedCards.removeAll()
                 selectedCards.append(card)
             }
@@ -173,4 +187,32 @@ class Set {
         }
     }
     init() {  newGame();  }
+    
+    
+    func calculateScore(aSet: Bool) {
+        let timeInSeconds = abs(date.timeIntervalSinceNow)
+        
+        if (timeInSeconds <= 15) {
+            if aSet {score += 4} else { score -= 3 }
+            
+        } else if (timeInSeconds > 15) {
+            if aSet {score += 1} else { score -= 5 }
+        }
+        date = Date()
+    }
+}
+
+
+
+
+
+
+import GameKit
+
+extension Array {
+  /// Returns the current instance with all
+  /// of it's elements in a random order.
+  func shuffled() -> [Element] {
+    return GKRandomSource.sharedRandom().arrayByShufflingObjects(in: self) as! [Element]
+  }
 }
