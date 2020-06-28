@@ -34,17 +34,23 @@ class ViewController: UIViewController {
     /// corresponding literal displayable UIColor.
     let color: [Color: UIColor] = [.red: #colorLiteral(red: 0.8117647059, green: 0.4, blue: 0.4745098039, alpha: 1), .green: #colorLiteral(red: 0.01176470588, green: 0.8549019608, blue: 0.7764705882, alpha: 1) , .purple: #colorLiteral(red: 0.6666666667, green: 0.1127794535, blue: 1, alpha: 1)]
     
-    
-    let card1 = Card(shape: .circle, shading: .open, color: .green, number: .two)
-    
+    let card1 = Card(shape: .triangle, shading: .open, color: .green, number: .three)
+    let card2 = Card(shape: .circle, shading: .open, color: .green, number: .three)
+    let card3 = Card(shape: .triangle, shading: .open, color: .green, number: .three)
+
     
     // MARK: Life cyle
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         
-        
+    
     }
+    
+    
+
+    
+    
     
     
     /// retruns the correct card string symbol with appropriate number
@@ -111,7 +117,7 @@ class ViewController: UIViewController {
             let cardOne = set.table.firstIndex(of: set.selectedCards[0])!
             let cardTwo = set.table.firstIndex(of: set.selectedCards[1])!
             let cardThree = set.table.firstIndex(of: set.selectedCards[2])!
-            if set.isASet() {
+            if set.cardsAreASet(cardOne: set.selectedCards[0], cardTwo: set.selectedCards[1], cardThree: set.selectedCards[2]) {
                 cards[cardOne].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
                 cards[cardTwo].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
                 cards[cardThree].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
@@ -179,7 +185,7 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func buttonPressed(_ sender: UIButton) {
+    @IBAction func playAgainButtonWasPressed(_ sender: UIButton) {
         
     }
     
