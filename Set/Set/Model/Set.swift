@@ -79,7 +79,7 @@ class Set {
         var firstArray = table
         var numpairOfMatches: [MatchedCards] = []
 
-        
+        // add comment
         for firstCard in firstArray {
             firstArray.removeAll(where: {$0 == firstCard})
             for secondCard in firstArray {
@@ -97,7 +97,7 @@ class Set {
             }
             firstArray.append(firstCard)
         }
-        
+        // appending cheat cards if there are more than one
         if numpairOfMatches.count > 0 {
             let r = Int.random(in: 0..<numpairOfMatches.count)
             cheatPair.append(numpairOfMatches[r].card1)
@@ -121,6 +121,7 @@ class Set {
         // when fullDeckOfCard is empty
         //
     func dealCard() {
+        
         if selectedCards.count == 3 && isASet() && !fullDeckOfCards.isEmpty {
              // TODO: Update score
             selectedCards.forEach { (card) in
@@ -141,6 +142,7 @@ class Set {
         }
     }
     
+    
     /// new game description
     func newGame() {
         fullDeckOfCards.removeAll(); table.removeAll(); score = 0
@@ -153,12 +155,29 @@ class Set {
     }
     
     /// select Card
+    // FIX:
     func select(card:Card) {
-        selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
-        if selectedCards.count == 4 {
+        // deselect or select card card
+        if selectedCards.contains(card) {
+            (selectedCards.removeAll(where:{ $0 == card}))
+            return
+        }
+        
+//        selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
+        
+        if selectedCards.count == 2 {
+            selectedCards.append(card)
+            calculateScore(aSet: isASet())
+            return
+        }
+        
+        
+        if selectedCards.count == 3 {
             if (isASet()) {
                 // TODO: update score
                 calculateScore(aSet: true)
+                
+                // update
                 for selectedCard in selectedCards {
                     table.removeAll(where: {$0 == selectedCard && !($0 == card)})
                 }
@@ -171,6 +190,17 @@ class Set {
                 selectedCards.append(card)
             }
         }
+        
+         selectedCards.append(card)
+        
+    }
+    
+    func checkIfYouHaveAMatch(card: Card? = nil) {
+        
+        
+        
+        
+        
     }
 
     // creates a full deck of 81 cards

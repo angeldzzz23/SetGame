@@ -59,6 +59,7 @@ class ViewController: UIViewController {
             // set the attributes of the button
             cardButton.setAttributedTitle(getAttributedText(cardButton: card), for: .normal)
             
+            
             // update cards that have been selected by the user
             if (set.selectedCards.contains(card)) {
                 cardButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -67,19 +68,38 @@ class ViewController: UIViewController {
             }
             
             // let user know that they have a match.
-            if (set.selectedCards.count == 3) {
-                if set.isASet() && set.selectedCards.contains(card) {
-                    cardButton.backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
-                     scoreButton.text = String(set.score)
-                } else if !set.isASet() && set.selectedCards.contains(card) {
-                   cardButton.backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
-                     scoreButton.text = String(set.score)
-                }
-            }
+//            if (set.selectedCards.count == 3) {
+//                if set.isASet() && set.selectedCards.contains(card) {
+//                    cardButton.backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+//                     scoreButton.text = String(set.score)
+//                } else if !set.isASet() && set.selectedCards.contains(card) {
+//                   cardButton.backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+//                     scoreButton.text = String(set.score)
+//                }
+//            }
             
             // get rid of the border for the cards that were used to cheat
             cardButton.layer.borderWidth = 0
         }
+        
+        
+        // update UI if user has a correct set or an incorrect set
+        
+        if set.selectedCards.count == Constants.totalPropertiesInCards {
+            let cardOne = set.table.firstIndex(of: set.selectedCards[0])!
+            let cardTwo = set.table.firstIndex(of: set.selectedCards[1])!
+            let cardThree = set.table.firstIndex(of: set.selectedCards[2])!
+            if set.isASet() {
+                cards[cardOne].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+                cards[cardTwo].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+                cards[cardThree].backgroundColor = #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1)
+            } else {
+                cards[cardOne].backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                cards[cardTwo].backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+                cards[cardThree].backgroundColor = #colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1)
+            }
+        }
+        
         
         // deal card button default settings
         dealCardButton.isEnabled = true
@@ -89,6 +109,7 @@ class ViewController: UIViewController {
             dealCardButton.isEnabled = false
             dealCardButton.setTitle("", for: .normal)
         }
+        
         // update selected cards
         scoreButton.text = String(set.score)
     }
@@ -113,7 +134,7 @@ class ViewController: UIViewController {
         set.cheat()
         updateUI()
         
-        if set.cheatPair.count == 3 {
+        if set.cheatPair.count == Constants.totalCardsRequiredForASet {
             if let index = set.table.firstIndex(of: set.cheatPair[0]) {
                         cards[index].layer.borderWidth = 1
                         cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.7954385166, blue: 0, alpha: 1)
