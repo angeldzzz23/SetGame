@@ -52,7 +52,9 @@ class Set {
 //        print(amount) // FIX ME:
         
         if amount.count < Constants.totalCardsRequiredForASet {return false}
+      
         var aSetHasBeenFound = false
+        
         // check if first two cards have a similarity
         if let similarProperties = compare(firstcard: amount[0], and: amount[1]) {
             // if they do then check if the properties they have in common are found in the thirdCard
@@ -107,6 +109,7 @@ class Set {
         } else {
            print("there is no set")
         }
+        // replace this function with normal code
          penalizeIfThereIsASet()
     }
     
@@ -116,91 +119,75 @@ class Set {
     }
     
     
-    /// deals three cards into table
-    // there is bug
-        // when fullDeckOfCard is empty
-        //
-    func dealCard() {
-        
-        if selectedCards.count == 3 && isASet() && !fullDeckOfCards.isEmpty {
-             // TODO: Update score
-            selectedCards.forEach { (card) in
-                let index = table.firstIndex(of: card)!
-                table[index] = fullDeckOfCards.removeFirst()
-            }
-            selectedCards.removeAll()
-        } else if (selectedCards.count == 3 && isASet() && fullDeckOfCards.isEmpty) {
-             // TODO: Update score
-            // remove just from the full deck of Cards
-            
-        } else if (selectedCards.count == 3 && !isASet()) {
-            calculateScore(aSet: false)
-        } else {
-           
-            table.append(contentsOf: fullDeckOfCards[0..<3])
-            fullDeckOfCards.removeSubrange(0..<3)
-        }
-    }
-    
-    
     /// new game description
     func newGame() {
         fullDeckOfCards.removeAll(); table.removeAll(); score = 0
         createAFullDeck()
         fullDeckOfCards.shuffle();
+        score = 0
+        selectedCards.removeAll()
+        cheatPair.removeAll()
+        
         // add 12 cards into table from cards
         table.append(contentsOf: fullDeckOfCards[0..<12])
         // removes cards from
         fullDeckOfCards.removeSubrange(0..<12)
     }
     
+    /// deals three cards into table
+       func dealCard() {
+           if selectedCards.count == 3 && isASet() && !fullDeckOfCards.isEmpty {
+                // TODO: Update score
+               selectedCards.forEach { (card) in
+                   let index = table.firstIndex(of: card)!
+                   table[index] = fullDeckOfCards.removeFirst()
+               }
+               selectedCards.removeAll()
+           } else if (selectedCards.count == 3 && isASet() && fullDeckOfCards.isEmpty) {
+                // TODO: Update score
+               // remove just from the full deck of Cards
+            selectedCards.forEach { (card) in
+                table.removeAll(where: {$0 == card})
+            }
+               
+           } else if (selectedCards.count == 3 && !isASet()) {
+               calculateScore(aSet: false)
+            selectedCards.removeAll()
+           } else {
+              table.append(contentsOf: fullDeckOfCards[0..<3])
+              fullDeckOfCards.removeSubrange(0..<3)
+           }
+       }
+    
     /// select Card
     // FIX:
     func select(card:Card) {
-        // deselect or select card card
+        // deselect or select card card or ch
         if selectedCards.contains(card) {
-            (selectedCards.removeAll(where:{ $0 == card}))
-            return
+            // detects when user tries to deselect when there are already 3 cards being selected
+            if selectedCards.count == 3 { return }
+            // deselects repeated cards
+            selectedCards.removeAll(where:{ $0 == card}); return
         }
-        
-//        selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
-        
-        if selectedCards.count == 2 {
-            selectedCards.append(card)
-            calculateScore(aSet: isASet())
-            return
-        }
-        
-        
+        // calculates score when the user enters the third card.
+        if selectedCards.count ==  Constants.totalCardsRequiredForASet - 1 { selectedCards.append(card); calculateScore(aSet: isASet()); return }
+          
+        // add commenting
+        // take into account when the user has
         if selectedCards.count == 3 {
             if (isASet()) {
-                // TODO: update score
-                calculateScore(aSet: true)
-                
-                // update
+               // update
                 for selectedCard in selectedCards {
-                    table.removeAll(where: {$0 == selectedCard && !($0 == card)})
+                table.removeAll(where: {$0 == selectedCard && !($0 == card)})
                 }
-                // remove all selected cards except the forth card
-                selectedCards.removeAll(where: {$0 != card})
-            } else {
-                // update score
-                calculateScore(aSet: false)
-                selectedCards.removeAll()
-                selectedCards.append(card)
-            }
-        }
-        
-         selectedCards.append(card)
-        
-    }
-    
-    func checkIfYouHaveAMatch(card: Card? = nil) {
-        
-        
-        
-        
-        
+          // remove all selected cards except the forth card
+          selectedCards.removeAll(where: {$0 != card})
+              } else {
+                  // update score
+                  selectedCards.removeAll()
+              }
+          }
+            selectedCards.append(card)
     }
 
     // creates a full deck of 81 cards
@@ -222,10 +209,8 @@ class Set {
     }
     init() {  newGame();  }
     
-    
     func calculateScore(aSet: Bool) {
         let timeInSeconds = abs(date.timeIntervalSinceNow)
-        
         if (timeInSeconds <= 15) {
             if aSet {score += 4} else { score -= 3 }
             

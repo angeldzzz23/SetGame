@@ -355,7 +355,7 @@
                     </view>
                     <connections>
                         <outlet property="dealCardButton" destination="279-6e-zVC" id="ViV-OO-bWg"/>
-                        <outlet property="scoreButton" destination="Sng-dn-r7v" id="ALU-ln-0BQ"/>
+                        <outlet property="scoreLabel" destination="Sng-dn-r7v" id="ALU-ln-0BQ"/>
                         <outletCollection property="cards" destination="MKJ-wk-UqY" collectionClass="NSMutableArray" id="Owb-nb-b0b"/>
                         <outletCollection property="cards" destination="OvC-LM-SVv" collectionClass="NSMutableArray" id="7nW-Er-Asq"/>
                         <outletCollection property="cards" destination="9DH-Y8-9PN" collectionClass="NSMutableArray" id="bhj-9H-3VV"/>
