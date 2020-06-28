@@ -10,10 +10,11 @@ import Foundation
 
 struct Constants {
     static let totalPropertiesInCards = 3
-    static let colors: [Properties.Color1] = [Properties.Color1.green, Properties.Color1.red, Properties.Color1.purple]
-    static let shapes: [Properties.Shape1] =  [Properties.Shape1.circle, .square, .triangle]
-    static let shadings: [Properties.Shading1] = [Properties.Shading1.solid, .striped, .open]
-    static let numbers: [Properties.Number1] = [Properties.Number1.one, .two, .three]
+    static let totalCardsRequiredForASet = 3
+    static let colors: [Color] = [Color.green, Color.red, Color.purple]
+    static let shapes: [Shape] =  [Shape.circle, .square, .triangle]
+    static let shadings: [Shading] = [Shading.solid, .striped, .open]
+    static let numbers: [Number] = [Number.one, .two, .three]
     static let properties: [Any] = [shapes, shadings, colors, numbers]
 }
 
@@ -34,9 +35,9 @@ class Set {
     
     /// compares
     // return an array of properties that they have in common
-    private func compare(firstcard: Card,and secondCard: Card) -> [random]?  {
+    private func compare(firstcard: Card,and secondCard: Card) -> [Property]?  {
         // holds the properties that are similar between the two cards
-        var propertiesThatAreSimilar: [random] = []
+        var propertiesThatAreSimilar: [Property] = []
         
         for (cp1) in (firstcard.properties) {
             if (secondCard.contains(property: cp1)) { propertiesThatAreSimilar.append(cp1) }
@@ -50,7 +51,7 @@ class Set {
         let amount = cards ?? selectedCards
 //        print(amount) // FIX ME:
         
-        if amount.count < 3 {return false}
+        if amount.count < Constants.totalCardsRequiredForASet {return false}
         var aSetHasBeenFound = false
         // check if first two cards have a similarity
         if let similarProperties = compare(firstcard: amount[0], and: amount[1]) {
@@ -71,13 +72,13 @@ class Set {
         return (compare(firstcard: amount[0], and: amount[2]) == nil && compare(firstcard: amount[1], and: amount[2]) == nil)
     }
     
-    
     /// intializes cheatPair with three cards that are a set
     // optimize it to make it faster
     func cheat() {
         cheatPair.removeAll()
         var firstArray = table
         var numpairOfMatches: [MatchedCards] = []
+
         
         for firstCard in firstArray {
             firstArray.removeAll(where: {$0 == firstCard})
@@ -106,23 +107,16 @@ class Set {
         } else {
            print("there is no set")
         }
-        
          penalizeIfThereIsASet()
-        
     }
     
-    
-    
+    // penalizes if there cheatPair
     func penalizeIfThereIsASet() {
-        
-        if cheatPair.count > 0 {
-            score -= 5
-        }
+        if cheatPair.count > 0 { score -= 5 }
     }
     
     
     /// deals three cards into table
-    
     // there is bug
         // when fullDeckOfCard is empty
         //
@@ -137,6 +131,7 @@ class Set {
         } else if (selectedCards.count == 3 && isASet() && fullDeckOfCards.isEmpty) {
              // TODO: Update score
             // remove just from the full deck of Cards
+            
         } else if (selectedCards.count == 3 && !isASet()) {
             calculateScore(aSet: false)
         } else {
@@ -158,7 +153,6 @@ class Set {
     }
     
     /// select Card
-    // TODO: Update score
     func select(card:Card) {
         selectedCards.contains(card) ? (selectedCards.removeAll(where:{ $0 == card})) : selectedCards.append(card)
         if selectedCards.count == 4 {
@@ -178,16 +172,10 @@ class Set {
             }
         }
     }
-    
-    func updateScore() {
-        if isASet() && selectedCards.count == 3 {score += 3} else if selectedCards.count == 3 { score -= 5 }
-    }
-    
+
     // creates a full deck of 81 cards
-    // find a way to make this simple
-    // TODO: Refactor
     func createAFullDeck() {
-        // Shapes changes
+        // shapes
         for ss in 0..<Constants.totalPropertiesInCards {
             // shadings changes
             for s in 0..<Constants.totalPropertiesInCards {
@@ -216,19 +204,4 @@ class Set {
         }
         date = Date()
     }
-}
-
-
-
-
-
-
-import GameKit
-
-extension Array {
-  /// Returns the current instance with all
-  /// of it's elements in a random order.
-  func shuffled() -> [Element] {
-    return GKRandomSource.sharedRandom().arrayByShufflingObjects(in: self) as! [Element]
-  }
 }

@@ -17,7 +17,6 @@ class MatchedCards: Equatable {
     
     static func == (lhs: MatchedCards, rhs: MatchedCards) -> Bool {
         var cardCount = 0
-        
         for lhscard in lhs.cards {
             if rhs.cards.contains(lhscard) {
                 cardCount += 1

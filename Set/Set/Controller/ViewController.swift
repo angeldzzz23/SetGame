@@ -23,8 +23,8 @@ class ViewController: UIViewController {
      var date = Date()
     
     // mapping properties
-    let color: [Card.Color1: UIColor] = [.red: #colorLiteral(red: 0.8117647059, green: 0.4, blue: 0.4745098039, alpha: 1), .green: #colorLiteral(red: 0.01176470588, green: 0.8549019608, blue: 0.7764705882, alpha: 1) , .purple: #colorLiteral(red: 0.6666666667, green: 0.1127794535, blue: 1, alpha: 1)]
-    let shape: [Card.Shape1: String] = [.circle: "●", .triangle: "▲", .square: "■"]
+    let color: [Color: UIColor] = [.red: #colorLiteral(red: 0.8117647059, green: 0.4, blue: 0.4745098039, alpha: 1), .green: #colorLiteral(red: 0.01176470588, green: 0.8549019608, blue: 0.7764705882, alpha: 1) , .purple: #colorLiteral(red: 0.6666666667, green: 0.1127794535, blue: 1, alpha: 1)]
+    let shape: [Shape: String] = [.circle: "●", .triangle: "▲", .square: "■"]
     
     
     override func viewDidLoad() {
@@ -48,11 +48,8 @@ class ViewController: UIViewController {
     
     func updateUI() {
         // the initialState for all cards
-        for card in cards {
-           card.alpha = 0
-           card.setAttributedTitle(nil, for: .normal)
-           card.setTitle(nil, for: .normal)
-        }
+        cards.forEach({$0.alpha = 0; $0.setAttributedTitle(nil, for: .normal); $0.setTitle(nil, for: .normal) })
+        
         
         // loop through each button and update their properties
         set.table.enumerated().forEach {  (index, card) in
@@ -92,10 +89,8 @@ class ViewController: UIViewController {
             dealCardButton.isEnabled = false
             dealCardButton.setTitle("", for: .normal)
         }
-        
         // update selected cards
         scoreButton.text = String(set.score)
-     
     }
     
     @IBAction func dealCardButtonWasPressed(_ sender: UIButton) {
@@ -117,21 +112,24 @@ class ViewController: UIViewController {
     @IBAction func cheatButtonWasPressed(_ sender: UIButton) {
         set.cheat()
         updateUI()
-     if let index = set.table.firstIndex(of: set.cheatPair[0]) {
-             cards[index].layer.borderWidth = 1
-             cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-         }
-     
-           if let index = set.table.firstIndex(of: set.cheatPair[1]) {
+        
+        if set.cheatPair.count == 3 {
+            if let index = set.table.firstIndex(of: set.cheatPair[0]) {
+                        cards[index].layer.borderWidth = 1
+                        cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.7954385166, blue: 0, alpha: 1)
+                    }
+                
+          if let index = set.table.firstIndex(of: set.cheatPair[1]) {
 
-             cards[index].layer.borderWidth = 1
-             cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-           }
-           
-           if let index = set.table.firstIndex(of: set.cheatPair[2]) {
-             cards[index].layer.borderWidth = 1
-             cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.5212053061, blue: 1, alpha: 1)
-           }
+            cards[index].layer.borderWidth = 1
+            cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.7954385166, blue: 0, alpha: 1)
+          }
+          
+          if let index = set.table.firstIndex(of: set.cheatPair[2]) {
+            cards[index].layer.borderWidth = 1
+            cards[index].layer.borderColor = #colorLiteral(red: 1, green: 0.7954385166, blue: 0, alpha: 1)
+            }
+        }
     }
     
     func getAttributedText(cardButton: Card) ->NSAttributedString {
@@ -149,7 +147,6 @@ class ViewController: UIViewController {
         }
         return NSAttributedString(string: getShapeWithAppropriateNumber(card: cardButton), attributes: attributes)
     }
-    
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         

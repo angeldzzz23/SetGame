@@ -9,21 +9,21 @@
 import Foundation
 
 
-class Card: Properties, Equatable, CustomStringConvertible {
+class Card: Equatable, CustomStringConvertible {
     
     
-    var number: Number1
-    var shape: Shape1
-    var shading: Shading1
-    var color: Color1
+    var number: Number
+    var shape: Shape
+    var shading: Shading
+    var color: Color
     
     var description: String {
         return "Shape: \(shape), Shading: \(shading), Color: \(color), Number: \(number)"
     }
     
-    lazy var properties: [random] = [number, shape, shading, color]
+    lazy var properties: [Property] = [number, shape, shading, color]
     
-    init(shape: Shape1, shading: Shading1, color: Color1, number: Number1) {
+    init(shape: Shape, shading: Shading, color: Color, number: Number) {
         self.shape = shape
         self.shading = shading
         self.color = color
@@ -37,13 +37,13 @@ class Card: Properties, Equatable, CustomStringConvertible {
     /// checks if a certain property is in the Card
     /// Will return false if it is not.
     func contains<T>(property: T) -> Bool {
-        if let shape = property as? Shape1 {
+        if let shape = property as? Shape {
             return (self.shape == shape)
-        } else if let shading = property as? Shading1 {
+        } else if let shading = property as? Shading {
             return (self.shading == shading)
-        } else if let color = property as? Color1 {
+        } else if let color = property as? Color {
             return (self.color == color)
-        } else if let number = property as? Number1 {
+        } else if let number = property as? Number {
             return (self.number == number)
         }
         return false

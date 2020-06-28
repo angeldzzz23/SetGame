@@ -8,51 +8,46 @@
 
 import Foundation
 
-protocol random {
-    // add the getAll() function
-    // remove class property
-}
-
-
-class Properties {
-   
-    enum Number1: random {
+protocol Property {
+    
+}   
+    enum Number: Property {
         case one
         case two
         case three
     
-        func getAll()->[Number1] {
+        func getAll()->[Number] {
             return [.one,.two,.three]
         }
     }
     
-    enum Color1: random {
+    enum Color: Property {
         case red
         case green
         case purple
         
-        func getAll()->[Color1] {
+        func getAll()->[Color] {
             return [.red,.green,.purple]
         }
     }
     
-    enum Shape1: random {
+    enum Shape: Property {
         case circle
         case square
         case triangle
         
-        func getAll()->[Shape1] {
+        func getAll()->[Shape] {
             return [.circle, .square, .triangle]
         }
     }
     
-    enum Shading1: random {
+    enum Shading: Property {
         case solid
         case striped
         case open
         
-        func getAll()->[Shading1] {
+        func getAll()->[Shading] {
             return [.solid,.striped, .open ]
         }
     }
-}
+
